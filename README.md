@@ -61,4 +61,26 @@ KeyError : 'OPENAI_API_KEY'	The PDFSearchTool was unable to find the OpenAI API 
 Outdated Dependency Versions:	The original requirements.txt file had outdated and conflicting dependencies, particularly with onnxruntime. The requirements.txt was updated with compatible versions of all necessary libraries to ensure a stable working environment.
 
 Asynchronous Function Mismatch:	The run_crew function in main.py was not properly awaited. The function call was updated to await run_crew to handle asynchronous operations correctly, a requirement for working with fastapi.
+### **API Documentation**
+
+The project's API is documented to help users understand its functionality and how to interact with it.
+
+***
+
+### **Endpoint: `/analyze`**
+
+* **URL:** `http://localhost:8000/analyze`
+* **Method:** `POST`
+* **Description:** This endpoint processes an uploaded financial document, performs a comprehensive AI analysis, and returns a structured report with key financial insights.
+* **Parameters:**
+    * `file` (required): An uploaded PDF file (`multipart/form-data`).
+    * `query` (optional): A string to specify the user's specific analysis request. The default query is "Analyze this financial document for investment insights".
+* **Response:**
+    * **Success (200 OK):** Returns a JSON object containing the status, the query, the name of the processed file, and the full analysis report in a structured Markdown format.
+        * `status`: "success"
+        * `query`: The query used for the analysis.
+        * `analysis`: A multi-section report with a summary of financial health, key metrics, risks/opportunities, and investment recommendations.
+        * `file_processed`: The filename of the uploaded document.
+    * **Error (500 Internal Server Error):** Returns a JSON object with an error message.
+        * `detail`: A description of the error that occurred during processing.
 
